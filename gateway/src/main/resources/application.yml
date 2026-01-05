@@ -3,11 +3,23 @@ server:
 
 spring:
   application:
-    name: Gateway
+    name: SERVICE-GATEWAY
   cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        service-name: SERVICE-GATEWAY
+        health-check-path: /actuator/health
+        health-check-interval: 10s
     discovery:
       enabled: true
 
-eureka:
-  instance:
-    hostname: localhost
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
